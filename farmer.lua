@@ -4,7 +4,7 @@ local frames = 0
 local performance = {}
 
 workspace.DescendantAdded:Connect(function(child)
-	if child:FindFirstChildOfClass("ProximityPrompt") then
+	if child:FindFirstChildOfClass("ProximityPrompt") and child:IsA("BasePart") and child.Anchored == false then
 		goal = child
 		goalfound = false
 	end
