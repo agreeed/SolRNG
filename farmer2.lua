@@ -13,9 +13,9 @@ game:GetService("RunService").Heartbeat:Connect(function()
           hrp.CFrame = vhrp.CFrame
         end
       end)
-      local prox = v:FindFirstChildOfClass("ProximityPrompt")
       ]]
                         
+      local prox = v:FindFirstChildOfClass("ProximityPrompt") 
       prox.RequiresLineOfSight = false
       prox.MaxActivationDistance = 10000
       prox:InputHoldBegin()
