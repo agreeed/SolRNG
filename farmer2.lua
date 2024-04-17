@@ -11,7 +11,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
       local pos = CFrame.new(hrp.Position, v.Position)
 
       repeat
-            pos += pos.LookVector * (_G.FarmSpeed or 1)
+            pos += pos.LookVector * (getfenv().FarmSpeed or 1)
             hrp.CFrame = pos
             wait()
       until (hrp.Position - v.Position).Magnitude < 8
