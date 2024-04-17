@@ -12,6 +12,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
       repeat
             pos += pos.LookVector * 3
             hrp.CFrame = pos
+            wait()
       until (hrp.Position - v.Position).Magnitude < 8
 
       if fireproximityprompt then
