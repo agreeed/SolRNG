@@ -59,6 +59,7 @@ task.spawn(function()
 			end
 			
 			hrp.AssemblyLinearVelocity = Vector3.one * 10
+			print("Idle")
 			
 			return
 		end
@@ -83,6 +84,7 @@ task.spawn(function()
 		if goaldistance > 10 then
 			hrp.CFrame += goaldirection.LookVector * 8
 			hrp.AssemblyLinearVelocity = Vector3.yAxis * -10
+			print("Moving to ", goal)
 		else
 			hrp.CFrame = goal.CFrame
 			hrp.AssemblyLinearVelocity = Vector3.zero
@@ -90,6 +92,7 @@ task.spawn(function()
 			
 			frames = 0
 			hrp.Anchored = true
+			print("Reached ", goal)
 			task.wait(0.2)
 			fireproximityprompt(goal:FindFirstChildOfClass("ProximityPrompt"))
 			goalfound = true
