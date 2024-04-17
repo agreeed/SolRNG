@@ -5,7 +5,14 @@ vhrp.Anchored = true
 game:GetService("RunService").Heartbeat:Connect(function()
   for i, v in pairs(workspace:WaitForChild("DroppedItems"):GetDescendants()) do
     if v:FindFirstChildOfClass("ProximityPrompt") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-      local prox = v:FindFirstChildOfClass("ProximityPrompt") 
+      local prox = v:FindFirstChildOfClass("ProximityPrompt")
+      local hrp = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+      local pos = CFrame.new(hrp.CFrame, v.CFrame)
+
+      repeat
+            pos += pos.LookVector * 3
+            hrp.CFrame = pos
+      until (hrp.Position - v.Position).Magnitude < 8
 
       if fireproximityprompt then
             fireproximityprompt(prox, 2.48)
