@@ -3,10 +3,15 @@ local goalfound = true
 local frames = 0
 local performance = {}
 
-workspace.DescendantAdded:Connect(function(child)
-	if child:FindFirstChildOfClass("ProximityPrompt") and child:IsA("BasePart") and child.Anchored == false then
+workspace:WaitForChild("DroppedItems").ChildAdded:Connect(function(child)
+	if child:IsA("Model") then
+		goal = child:WaitForChild("Casing", 1)
+		goalfound = not goal
+	end
+		
+	if child:IsA("BasePart") then
 		goal = child
-		goalfound = false
+		goalfound = not goal
 	end
 end)
 
