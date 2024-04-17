@@ -9,6 +9,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
 
       if fireproximityprompt then
             fireproximityprompt(prox, 2.48)
+            print(fireproximityprompt)
       else
             prox.RequiresLineOfSight = false
             prox.MaxActivationDistance = 10000
@@ -16,6 +17,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
             task.wait()
             prox:InputHoldEnd()
             task.wait()
+            print(prox)
       end
     end
   end
