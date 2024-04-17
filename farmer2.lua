@@ -7,7 +7,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
     if v:FindFirstChildOfClass("ProximityPrompt") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
       local prox = v:FindFirstChildOfClass("ProximityPrompt")
       local hrp = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-      local pos = CFrame.new(hrp.CFrame, v.CFrame)
+      local pos = CFrame.new(hrp.Position, v.Position)
 
       repeat
             pos += pos.LookVector * 3
