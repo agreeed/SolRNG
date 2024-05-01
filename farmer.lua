@@ -1,114 +1,124 @@
-local goal = nil
-local goalfound = true
-local frames = 0
-local performance = {}
+blacklist = [[
 
-workspace:WaitForChild("DroppedItems").ChildAdded:Connect(function(child)
-	if child:IsA("Model") then
-		goal = child:WaitForChild("Casing", 1)
-		goalfound = not goal
-	end
-		
-	if child:IsA("BasePart") then
-		goal = child
-		goalfound = not goal
-	end
-end)
+Rules:
+1. Exploiting: [Blacklist]
+2. Abusing God's hand [Permanent ban]
+3. Being toxic / annoying e.g. "i know it brings you pain but it only makes me feel a bit better" [Ban]
+3.1. If you play the game normally, you don't break the rules even if it gets annoying
+3.2. Teaming, targetting does not count 
+4. Extreme toxicity e.g. threats, "mad?", "L" etc. [Permanent Ban]
+5. Teaming, supporting other blacklisted rulebreakers, being toxic or teaming in result [Permanent Ban]
 
-local function fireproximityprompt(prox: ProximityPrompt)
-	if not prox then
+Lines starting with $ are rules (blacklists)
+
+-- $0;RuslanDrab;rule 2, 3, 4 [ib];SemiPurgatory
+-- $0;RET_URNTIX;rule 1, 3 [ib];SemiPurgatory
+-- $0;RobloxKid4Life2017;rule 4 [ib];SemiPurgatory
+-- $1;Sashaviki2;rule 3, 5 [ib];SemiPurgatory
+-- $1;MushyDrgon;rule 3, 5 [ib];SemiPurgatory
+-- $1;gogochi2010;rule 3 [ib];SemiPurgatory
+-- $1;2gonzalito2;rule 3 [ib];SemiPurgatory
+-- $1;topgeamerpro;rule 3 [ib];SemiPurgatory
+-- $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
+$1;Kop90lop;test;SemiPurgatory
+
+]]
+parsedblacklist = {}
+for i, v in pairs(blacklist:split("\n")) do
+	if v:sub(0, 1) == "$" then
+		table.insert(parsedblacklist, v:split(";"))
+	end
+end
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+local function findBlacklistedUser(user: string)
+	for i, v in pairs(parsedblacklist) do
+		if v[2] == user then
+			return v
+		end
+	end
+end
+
+local function getChar(plr: Player?)
+	local plr = plr or game:GetService("Players").LocalPlayer
+
+	return plr.Character
+end
+
+local function getRoot(char: Model | Player)
+	if char:IsA("Player") or not char then
+		char = getChar(char)
+	end
+
+	if not char then
 		return
 	end
-	
-	repeat
-		prox.RequiresLineOfSight = false
-		prox.MaxActivationDistance = math.huge
-		prox:InputHoldBegin()
-		task.wait()
-		prox:InputHoldEnd()
-		task.wait()
-	until not prox.Parent
+
+	return char:FindFirstChild("HumanoidRootPart") or
+		char:FindFirstChild("Torso") or
+		char:FindFirstChild("LowerTorso")
 end
 
-local function logperformance(score)
-	table.insert(performance, score)
-	
-	if #performance % 10 == 0 then
-		local avg = 0
-		
-		for i, v in performance do
-			avg += v
+local function slap(plr: Player, event: string, tp: Vector3?)
+	local e = "Dangerous slap!"
+	local opp = getRoot(plr)
+	local me = getRoot()
+
+	if tp then
+		if tp.Magnitude > 5 then
+			warn(e, "Teleport distance is too far away!", tp.Magnitude)
 		end
-		
-		avg = avg / #performance
-		
-		print("Performance report: [",#performance,"]",avg)
+
+		me.CFrame = CFrame.new(opp.CFrame + tp, opp.CFrame) -- offset me from opp & look at opp
+	end
+
+	local mag = (opp.Position - me.Position).Magnitude
+	if mag > 5 then
+		warn(e, "Slap distance is too far away!", mag)
+	end
+
+	workspace.REvents[event]:FireServer(plr, "", "", "", "")
+end
+
+local function chat(msg: string)
+	return game:GetService("ReplicatedStorage").ClassicChatSystemEvents.Chat:InvokeServer(msg)
+end
+
+local talkcd = {}
+local function talk(bldata)
+	if talkcd[bldata[2]] + 60 > time() then
+		return
+	end
+
+	talkcd[bldata[2]] = time()
+
+	if bldata[1] == "0" then
+		chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
+	else
+		chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
 	end
 end
 
-task.spawn(function()
-	while task.wait(1/30) do
-		local char = game:GetService('Players').LocalPlayer.Character
-		if not char then
-			continue
-		end
-		if not goal and char then
-			local hrp: Part = char:FindFirstChild("HumanoidRootPart")
-			if not hrp then
-				continue
-			end
-			
-			hrp.AssemblyLinearVelocity = Vector3.one * 10
-			print("Idle")
-			
-			return
-		end
-		
-		local hrp: Part = char:FindFirstChild("HumanoidRootPart")
-		if not hrp or goalfound then
-			continue
-		end
+while task.wait(0.1) do
+	local root = getRoot()
 
-		for i, v in workspace:GetDescendants() do
-			if v:IsA("BasePart") then
-				v.CanCollide = false
-			end
-		end
-		
-		hrp.Anchored = false
-		local goaldirection = CFrame.new(hrp.Position, goal.Position)
-		local goaldistance = (hrp.Position - goal.Position).Magnitude
-		
-		frames += 1
-		
-		if goaldistance > 10 then
-			hrp.CFrame += goaldirection.LookVector * 8
-			hrp.AssemblyLinearVelocity = Vector3.yAxis * -10
-			print("Moving to ", goal)
-		else
-			hrp.CFrame = goal.CFrame
-			hrp.AssemblyLinearVelocity = Vector3.zero
-			logperformance(100 - math.round(frames * 1.5))
-			
-			frames = 0
-			hrp.Anchored = true
-			print("Reached ", goal)
-			task.wait(0.2)
-			fireproximityprompt(goal:FindFirstChildOfClass("ProximityPrompt"))
-			goalfound = true
+	if not root then
+		continue
+	end
+
+	if not game:GetService("Players").LocalPlayer.Inventory:FindFirstChildOfClass("Tool") then
+		root.CFrame = workspace.Scripts.GiverZone.CFrame
+		task.wait()
+	end
+
+	for _, p in pairs(game:GetService("Players"):GetPlayers()) do
+		local bl = findBlacklistedUser(p)
+
+		if bl then
+			slap(p, "GodSlap", Vector3.yAxis * -3)
+			talk(bl)
 		end
 	end
-end)
-
-task.spawn(function()
-	while task.wait() do
-		local char = game:GetService('Players').LocalPlayer.Character
-		if not char then
-			continue
-		end
-		
-		if char:FindFirstChild("Humanoid") then
-			char.Humanoid:ChangeState(({Enum.HumanoidStateType.Seated, Enum.HumanoidStateType.Running})[math.random(1, 2)])
-		end
-	end
-end)
+end
