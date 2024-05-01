@@ -133,8 +133,12 @@ local success, err = pcall(function()
 end)
 
 if not success then
+	local gui = Instance.new("ScreenGui", game:GetService("CoreGui"))
+	gui.Enabled = true
+	gui.DisplayOrder
+
 	local label = Instance.new("TextLabel")
-	label.Parent = game:GetService("CoreGui").RobloxGui
+	label.Parent = gui
 	label.Size = UDim2.fromScale(1, 1)
 	label.TextScaled = true
 	label.Text = err
