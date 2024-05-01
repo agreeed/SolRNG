@@ -120,14 +120,8 @@ local success, err = pcall(function()
 			local bl = findBlacklistedUser(p.Name)
 
 			if bl then
-				local s, e = pcall(function()
-					talk(bl)
-					slap(p, "GodSlap", Vector3.yAxis * -3)
-				end)
-
-				if not s then
-					chat(e)
-				end
+				talk(bl)
+				slap(p, "GodSlap", Vector3.yAxis * -3)
 			end
 		end
 	end
