@@ -48,7 +48,7 @@ local function getChar(plr: Player?)
 end
 
 local function getRoot(char: Model | Player)
-	if char:IsA("Player") or not char then
+	if not char or char:IsA("Player") then
 		char = getChar(char)
 	end
 
@@ -108,7 +108,7 @@ while task.wait(0.1) do
 		continue
 	end
 
-	if not game:GetService("Players").LocalPlayer.Inventory:FindFirstChildOfClass("Tool") then
+	if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool") then
 		root.CFrame = workspace.Scripts.GiverZone.CFrame
 		task.wait(1)
 	end
