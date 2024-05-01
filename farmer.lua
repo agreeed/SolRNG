@@ -3,8 +3,9 @@ blacklist = [[
 Rules:
 1. Exploiting: [Blacklist]
 2. Abusing God's hand [Permanent ban]
-3. Teaming or targetting, being toxic / annoying e.g. "i know it brings you pain but it only makes me feel a bit better" [Ban]
+3. Being toxic / annoying e.g. "i know it brings you pain but it only makes me feel a bit better" [Ban]
 3.1. If you play the game normally, you don't break the rules even if it gets annoying
+3.2. Teaming, targetting does not count 
 4. Extreme toxicity e.g. threats, "mad?", "L" etc. [Permanent Ban]
 5. Teaming, supporting other blacklisted rulebreakers, being toxic or teaming in result [Permanent Ban]
 
@@ -88,8 +89,10 @@ local success, err = pcall(function()
 
 	local talkcd = {}
 	local function talk(bldata)
-		if talkcd[bldata[2]] + 60 > time() then
-			return
+		if talkcd[bldata[2]] then
+			if talkcd[bldata[2]] + 60 > time() then
+				return
+			end
 		end
 
 		talkcd[bldata[2]] = time()
@@ -114,7 +117,8 @@ local success, err = pcall(function()
 		end
 
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
-			local bl = findBlacklistedUser(p.Name)
+			local bl = findBlacklistedUser(p)
+			chat(tostring(bl))
 
 			if bl then
 				local s, e = pcall(function()
