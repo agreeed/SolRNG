@@ -136,8 +136,8 @@ local success, err = pcall(function()
 			if bl then
 				local s, e = pcall(function()
 					talk(bl)
-					slap(p, "DefaultSlap", Vector3.yAxis * -1)
-					root.AssemblyLinearVelocity = Vector3.yAxis * 100
+					slap(p, "DefaultSlap", Vector3.yAxis * 3)
+					root.AssemblyLinearVelocity = Vector3.yAxis * -500
 					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 1000
 					root.CanCollide = false
 				end)
