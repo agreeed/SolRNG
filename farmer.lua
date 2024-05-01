@@ -118,6 +118,10 @@ local success, err = pcall(function()
 			task.wait(1)
 		end
 
+		repeat
+			bptool = game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+			task.wait()
+		until bptool
 		bptool.Parent = root.Parent
 
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
