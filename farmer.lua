@@ -5,7 +5,6 @@ Rules:
 2. Abusing God's hand [Permanent ban]
 3. Being toxic / annoying e.g. "i know it brings you pain but it only makes me feel a bit better" [Ban]
 3.1. If you play the game normally, you don't break the rules even if it gets annoying
-3.2. Teaming, targetting does not count 
 4. Extreme toxicity e.g. threats, "mad?", "L" etc. [Permanent Ban]
 5. Teaming, supporting other blacklisted rulebreakers, being toxic or teaming in result [Permanent Ban]
 
@@ -21,6 +20,9 @@ $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
 UNBANNED $1;WAYON_IDK;rule 4;SemiPurgatory
 $1;SemiPurgatory;bad programming;SemiPurgatory
+$1;neomo7;rule 3;SemiPurgatory
+$1;wet_dino454;rule 3;SemiPurgatory
+$1;kuzey522012;rule 3;SemiPurgatory
 
 ]]
 parsedblacklist = {}
@@ -134,9 +136,9 @@ local success, err = pcall(function()
 			if bl then
 				local s, e = pcall(function()
 					talk(bl)
-					slap(p, "DefaultSlap", Vector3.xAxis * 5)
-					root.AssemblyLinearVelocity = Vector3.yAxis * 1
-					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
+					slap(p, "DefaultSlap", Vector3.yAxis * -1)
+					root.AssemblyLinearVelocity = Vector3.yAxis * 100
+					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 1000
 					root.CanCollide = false
 				end)
 
