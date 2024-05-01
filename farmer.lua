@@ -11,7 +11,6 @@ Rules:
 Lines starting with $ are rules (blacklists)
 
 $0;RuslanDrab;rule 2, 3, 4 [ib];SemiPurgatory
-$0;RET_URNTIX;rule 1, 3 [ib];SemiPurgatory
 $0;RobloxKid4Life2017;rule 4 [ib];SemiPurgatory
 $1;Sashaviki2;rule 3, 5 [ib];SemiPurgatory
 $1;MushyDrgon;rule 3, 5 [ib];SemiPurgatory
@@ -19,10 +18,6 @@ $1;gogochi2010;rule 3 [ib];SemiPurgatory
 $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
 UNBANNED $1;WAYON_IDK;rule 4;SemiPurgatory
-$1;SemiPurgatory;bad programming;SemiPurgatory
-$1;neomo7;rule 3;SemiPurgatory
-$1;wet_dino454;rule 3;SemiPurgatory
-$1;kuzey522012;rule 3;SemiPurgatory
 
 ]]
 parsedblacklist = {}
