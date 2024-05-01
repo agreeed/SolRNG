@@ -99,9 +99,9 @@ local success, err = pcall(function()
 		talkcd[bldata[2]] = time()
 
 		if bldata[1] == "$1" then
-			chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
+			-- chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
 		else
-			chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
+			-- chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
 		end
 	end
 
@@ -134,7 +134,7 @@ local success, err = pcall(function()
 			if bl then
 				local s, e = pcall(function()
 					talk(bl)
-					slap(p, "DefaultSlap", Vector3.xAxis * 2)
+					slap(p, "DefaultSlap", Vector3.xAxis * 5)
 					root.AssemblyLinearVelocity = Vector3.yAxis * 1
 					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
 					root.CanCollide = false
