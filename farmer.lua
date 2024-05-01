@@ -117,8 +117,7 @@ local success, err = pcall(function()
 		end
 
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
-			local bl = findBlacklistedUser(p)
-			chat(tostring(bl))
+			local bl = findBlacklistedUser(p.Name)
 
 			if bl then
 				local s, e = pcall(function()
