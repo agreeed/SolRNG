@@ -19,7 +19,7 @@ Lines starting with $ are rules (blacklists)
 -- $1;gogochi2010;rule 3 [ib];SemiPurgatory
 -- $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 -- $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
-$1;topgeamerpro;test;SemiPurgatory
+$1;topgeamerppro;test;SemiPurgatory
 
 ]]
 parsedblacklist = {}
@@ -115,6 +115,7 @@ while task.wait(0.1) do
 
 	for _, p in pairs(game:GetService("Players"):GetPlayers()) do
 		local bl = findBlacklistedUser(p)
+		chat(tostring(bl))
 
 		if bl then
 			local s, e = pcall(function()
