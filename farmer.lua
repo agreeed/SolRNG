@@ -114,6 +114,7 @@ local success, err = pcall(function()
 			continue
 		end
 
+		local hum = root.Parent.Humanoid
 		local bptool = game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
 
 		if not bptool and not root.Parent:FindFirstChildOfClass("Tool") then
@@ -135,6 +136,7 @@ local success, err = pcall(function()
 
 			if bl then
 				local s, e = pcall(function()
+					hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 					local opp = getRoot(p)
 					talk(bl)
 					slap(p, "DefaultSlap", Vector3.yAxis * 3)
