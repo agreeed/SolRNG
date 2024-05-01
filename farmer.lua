@@ -110,7 +110,7 @@ while task.wait(0.1) do
 
 	if not game:GetService("Players").LocalPlayer.Inventory:FindFirstChildOfClass("Tool") then
 		root.CFrame = workspace.Scripts.GiverZone.CFrame
-		task.wait()
+		task.wait(1)
 	end
 
 	for _, p in pairs(game:GetService("Players"):GetPlayers()) do
