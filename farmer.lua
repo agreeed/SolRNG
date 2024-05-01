@@ -123,7 +123,7 @@ while task.wait(0.1) do
 			end)
 
 			if not s then
-				talk(e)
+				chat(e)
 			end
 		end
 	end
