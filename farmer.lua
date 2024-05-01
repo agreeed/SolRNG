@@ -135,7 +135,7 @@ end)
 if not success then
 	local gui = Instance.new("ScreenGui", game:GetService("CoreGui"))
 	gui.Enabled = true
-	gui.DisplayOrder
+	gui.DisplayOrder = 10000
 
 	local label = Instance.new("TextLabel")
 	label.Parent = gui
