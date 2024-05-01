@@ -84,7 +84,7 @@ local success, err = pcall(function()
 	end
 
 	local function chat(msg: string)
-		return game:GetService("ReplicatedStorage").ClassicChatSystemEvents.Chat:InvokeServer(msg)
+		return game:GetService("ReplicatedStorage").ClassicChatSystemChatEvents.Chat:InvokeServer(msg)
 	end
 
 	local talkcd = {}
