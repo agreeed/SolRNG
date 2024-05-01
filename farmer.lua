@@ -135,11 +135,13 @@ local success, err = pcall(function()
 
 			if bl then
 				local s, e = pcall(function()
+					local opp = getRoot(p)
 					talk(bl)
 					slap(p, "DefaultSlap", Vector3.yAxis * 3)
 					root.AssemblyLinearVelocity = Vector3.yAxis * -500
 					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 1000
 					root.CanCollide = false
+					opp:ApplyImpulse(Vector3.yAxis * 16)
 				end)
 
 				if not s then
