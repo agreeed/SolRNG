@@ -145,6 +145,8 @@ local success, err = pcall(function()
 				if not s then
 					chat(e)
 				end
+
+				task.wait()
 			end
 		end
 	end
