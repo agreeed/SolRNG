@@ -28,6 +28,7 @@ for i, v in pairs(blacklist:split("\n")) do
 		table.insert(parsedblacklist, v:split(";"))
 	end
 end
+print(parsedblacklist)
 
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
@@ -70,7 +71,7 @@ local function slap(plr: Player, event: string, tp: Vector3?)
 			warn(e, "Teleport distance is too far away!", tp.Magnitude)
 		end
 
-		me.CFrame = CFrame.new(opp.CFrame + tp, opp.CFrame) -- offset me from opp & look at opp
+		me.CFrame = CFrame.new(opp.Position + tp, opp.Position) -- offset me from opp & look at opp
 	end
 
 	local mag = (opp.Position - me.Position).Magnitude
@@ -93,7 +94,7 @@ local function talk(bldata)
 
 	talkcd[bldata[2]] = time()
 
-	if bldata[1] == "0" then
+	if bldata[1] == "$1" then
 		chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
 	else
 		chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
@@ -116,8 +117,8 @@ while task.wait(0.1) do
 		local bl = findBlacklistedUser(p)
 
 		if bl then
-			slap(p, "GodSlap", Vector3.yAxis * -3)
 			talk(bl)
+			slap(p, "GodSlap", Vector3.yAxis * -3)
 		end
 	end
 end
