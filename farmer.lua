@@ -20,7 +20,7 @@ Lines starting with $ are rules (blacklists)
 -- $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 -- $1;topgeamerpro;rule 3 [ib];SemiPurgatory
 -- $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
-$1;Kop90lop;test;SemiPurgatory
+$1;mescreal;test;SemiPurgatory
 
 ]]
 parsedblacklist = {}
