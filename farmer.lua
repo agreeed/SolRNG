@@ -111,17 +111,27 @@ local success, err = pcall(function()
 			continue
 		end
 
-		if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool") then
+		local bptool = game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+
+		if not bptool and not root.Parent:FindFirstChildOfClass("Tool") then
 			root.CFrame = workspace.Scripts.GiverZone.CFrame
 			task.wait(1)
 		end
+
+		bptool.Parent = root.Parent
 
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
 			local bl = findBlacklistedUser(p.Name)
 
 			if bl then
-				talk(bl)
-				slap(p, "GodSlap", Vector3.yAxis * -3)
+				local s, e = pcall(function()
+					talk(bl)
+					slap(p, "DefaultSlap", Vector3.yAxis * -3)
+				end)
+
+				if not s then
+					chat(e)
+				end
 			end
 		end
 	end
