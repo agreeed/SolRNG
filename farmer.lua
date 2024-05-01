@@ -117,8 +117,14 @@ while task.wait(0.1) do
 		local bl = findBlacklistedUser(p)
 
 		if bl then
-			talk(bl)
-			slap(p, "GodSlap", Vector3.yAxis * -3)
+			local s, e = pcall(function()
+				talk(bl)
+				slap(p, "GodSlap", Vector3.yAxis * -3)
+			end)
+
+			if not s then
+				talk(e)
+			end
 		end
 	end
 end
