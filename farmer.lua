@@ -33,99 +33,109 @@ print(parsedblacklist)
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
-local function findBlacklistedUser(user: string)
-	for i, v in pairs(parsedblacklist) do
-		if v[2] == user then
-			return v
-		end
-	end
-end
-
-local function getChar(plr: Player?)
-	local plr = plr or game:GetService("Players").LocalPlayer
-
-	return plr.Character
-end
-
-local function getRoot(char: Model | Player)
-	if not char or char:IsA("Player") then
-		char = getChar(char)
-	end
-
-	if not char then
-		return
-	end
-
-	return char:FindFirstChild("HumanoidRootPart") or
-		char:FindFirstChild("Torso") or
-		char:FindFirstChild("LowerTorso")
-end
-
-local function slap(plr: Player, event: string, tp: Vector3?)
-	local e = "Dangerous slap!"
-	local opp = getRoot(plr)
-	local me = getRoot()
-
-	if tp then
-		if tp.Magnitude > 5 then
-			warn(e, "Teleport distance is too far away!", tp.Magnitude)
-		end
-
-		me.CFrame = CFrame.new(opp.Position + tp, opp.Position) -- offset me from opp & look at opp
-	end
-
-	local mag = (opp.Position - me.Position).Magnitude
-	if mag > 5 then
-		warn(e, "Slap distance is too far away!", mag)
-	end
-
-	workspace.REvents[event]:FireServer(plr, "", "", "", "")
-end
-
-local function chat(msg: string)
-	return game:GetService("ReplicatedStorage").ClassicChatSystemEvents.Chat:InvokeServer(msg)
-end
-
-local talkcd = {}
-local function talk(bldata)
-	if talkcd[bldata[2]] + 60 > time() then
-		return
-	end
-
-	talkcd[bldata[2]] = time()
-
-	if bldata[1] == "$1" then
-		chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
-	else
-		chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
-	end
-end
-
-while task.wait(0.1) do
-	local root = getRoot()
-
-	if not root then
-		continue
-	end
-
-	if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool") then
-		root.CFrame = workspace.Scripts.GiverZone.CFrame
-		task.wait(1)
-	end
-
-	for _, p in pairs(game:GetService("Players"):GetPlayers()) do
-		local bl = findBlacklistedUser(p)
-		chat(tostring(bl))
-
-		if bl then
-			local s, e = pcall(function()
-				talk(bl)
-				slap(p, "GodSlap", Vector3.yAxis * -3)
-			end)
-
-			if not s then
-				chat(e)
+local success, err = pcall(function()
+	local function findBlacklistedUser(user: string)
+		for i, v in pairs(parsedblacklist) do
+			if v[2] == user then
+				return v
 			end
 		end
 	end
+
+	local function getChar(plr: Player?)
+		local plr = plr or game:GetService("Players").LocalPlayer
+
+		return plr.Character
+	end
+
+	local function getRoot(char: Model | Player)
+		if not char or char:IsA("Player") then
+			char = getChar(char)
+		end
+
+		if not char then
+			return
+		end
+
+		return char:FindFirstChild("HumanoidRootPart") or
+			char:FindFirstChild("Torso") or
+			char:FindFirstChild("LowerTorso")
+	end
+
+	local function slap(plr: Player, event: string, tp: Vector3?)
+		local e = "Dangerous slap!"
+		local opp = getRoot(plr)
+		local me = getRoot()
+
+		if tp then
+			if tp.Magnitude > 5 then
+				warn(e, "Teleport distance is too far away!", tp.Magnitude)
+			end
+
+			me.CFrame = CFrame.new(opp.Position + tp, opp.Position) -- offset me from opp & look at opp
+		end
+
+		local mag = (opp.Position - me.Position).Magnitude
+		if mag > 5 then
+			warn(e, "Slap distance is too far away!", mag)
+		end
+
+		workspace.REvents[event]:FireServer(plr, "", "", "", "")
+	end
+
+	local function chat(msg: string)
+		return game:GetService("ReplicatedStorage").ClassicChatSystemEvents.Chat:InvokeServer(msg)
+	end
+
+	local talkcd = {}
+	local function talk(bldata)
+		if talkcd[bldata[2]] + 60 > time() then
+			return
+		end
+
+		talkcd[bldata[2]] = time()
+
+		if bldata[1] == "$1" then
+			chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
+		else
+			chat("[!][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
+		end
+	end
+
+	while task.wait(0.1) do
+		local root = getRoot()
+
+		if not root then
+			continue
+		end
+
+		if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool") then
+			root.CFrame = workspace.Scripts.GiverZone.CFrame
+			task.wait(1)
+		end
+
+		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
+			local bl = findBlacklistedUser(p)
+			chat(tostring(bl))
+
+			if bl then
+				local s, e = pcall(function()
+					talk(bl)
+					slap(p, "GodSlap", Vector3.yAxis * -3)
+				end)
+
+				if not s then
+					chat(e)
+				end
+			end
+		end
+	end
+end)
+
+if not success then
+	local label = Instance.new("TextLabel")
+	label.Parent = game:GetService("CoreGui").RobloxGui
+	label.Size = UDim2.fromScale(1, 1)
+	label.TextScaled = true
+	label.Text = err
 end
