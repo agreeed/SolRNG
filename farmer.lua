@@ -19,7 +19,7 @@ Lines starting with $ are rules (blacklists)
 -- $1;gogochi2010;rule 3 [ib];SemiPurgatory
 -- $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 -- $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
-$1;WAYON_IDK;rule 2, 4;SemiPurgatory
+$1;WAYON_IDK;rule 4;SemiPurgatory
 
 ]]
 parsedblacklist = {}
@@ -98,9 +98,9 @@ local success, err = pcall(function()
 		talkcd[bldata[2]] = time()
 
 		if bldata[1] == "$1" then
-			chat("[d][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
+			chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
 		else
-			chat("[d][APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
+			chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
 		end
 	end
 
@@ -123,6 +123,8 @@ local success, err = pcall(function()
 				bptool = game:GetService("Players").LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
 				task.wait()
 			until bptool
+
+			bptool.Parent = root.Parent
 		end
 
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
@@ -132,6 +134,7 @@ local success, err = pcall(function()
 				local s, e = pcall(function()
 					talk(bl)
 					slap(p, "DefaultSlap", Vector3.yAxis * -3)
+					hrp.AssemblyLinearVelocity = Vector3.yAxis * 100
 				end)
 
 				if not s then
