@@ -66,17 +66,8 @@ local success, err = pcall(function()
 		local opp = getRoot(plr)
 		local me = getRoot()
 
-		if tp then
-			if tp.Magnitude > 5 then
-				warn(e, "Teleport distance is too far away!", tp.Magnitude)
-			end
-
-			me.CFrame = CFrame.new(opp.Position + tp, opp.Position) -- offset me from opp & look at opp
-		end
-
-		local mag = (opp.Position - me.Position).Magnitude
-		if mag > 5 then
-			warn(e, "Slap distance is too far away!", mag)
+		if tp and me then
+			me.CFrame = CFrame.new(opp.Position + tp, opp.Position)
 		end
 
 		workspace.REvents[event]:FireServer(plr, "", "", "", "")
@@ -84,23 +75,6 @@ local success, err = pcall(function()
 
 	local function chat(msg: string)
 		return game:GetService("ReplicatedStorage").ClassicChatSystemChatEvents.Chat:InvokeServer(msg)
-	end
-
-	local talkcd = {}
-	local function talk(bldata)
-		if talkcd[bldata[2]] then
-			if talkcd[bldata[2]] + 60 > time() then
-				return
-			end
-		end
-
-		talkcd[bldata[2]] = time()
-
-		if bldata[1] == "$1" then
-			--chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". Contact the moderator for further assistance.")
-		else
-			--chat("[APB] ".. bldata[2].. " is banned from entering the arena. Reason: ".. bldata[3].. "; Moderator: ".. bldata[4].. ". This punishment is not appealable.")
-		end
 	end
 
 	while task.wait(0.1) do
@@ -134,7 +108,6 @@ local success, err = pcall(function()
 			-- 	local s, e = pcall(function()
 			-- 		hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 			-- 		local opp = getRoot(p)
-			-- 		talk(bl)
 			-- 		slap(p, "DefaultSlap", Vector3.xAxis * 3)
 			-- 		root.AssemblyLinearVelocity = Vector3.yAxis * 5
 			-- 		root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
@@ -149,6 +122,7 @@ local success, err = pcall(function()
 			-- 	wait()
 			-- end
 			slap(p, "DefaultSlap", Vector3.new(math.random(), math.random(), math.random()) * 10)
+			hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 			wait()
 		end
 	end
