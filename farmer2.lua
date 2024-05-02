@@ -135,9 +135,9 @@ local success, err = pcall(function()
 					hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 					local opp = getRoot(p)
 					talk(bl)
-					slap(p, "DefaultSlap", Vector3.yAxis * 3)
-					root.AssemblyLinearVelocity = Vector3.xAxis * 5
-					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 25
+					slap(p, "DefaultSlap", Vector3.xAxis * 3)
+					root.AssemblyLinearVelocity = Vector3.YAxis * 5
+					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
 					root.CanCollide = false
 					opp:ApplyImpulse(Vector3.yAxis * 16)
 				end)
