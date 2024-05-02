@@ -18,6 +18,7 @@ $1;gogochi2010;rule 3 [ib];SemiPurgatory
 $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
 UNBANNED $1;WAYON_IDK;rule 4;SemiPurgatory
+$0;real993r5;rule 4;SemiPurgatory
 
 ]]
 parsedblacklist = {}
@@ -61,24 +62,14 @@ local success, err = pcall(function()
 	end
 
 	local function slap(plr: Player, event: string, tp: Vector3?)
-		local e = "Dangerous slap!"
 		local opp = getRoot(plr)
 		local me = getRoot()
 
 		if tp then
-			if tp.Magnitude > 5 then
-				warn(e, "Teleport distance is too far away!", tp.Magnitude)
-			end
-
 			me.CFrame = CFrame.new(opp.Position + tp, opp.Position) -- offset me from opp & look at opp
 		end
 
-		local mag = (opp.Position - me.Position).Magnitude
-		if mag > 5 then
-			warn(e, "Slap distance is too far away!", mag)
-		end
-
-		workspace.REvents[event]:FireServer(plr, "", "", "", "")
+		task.delay(0, function() workspace.REvents.DefaultSlap:FireServer(plr, "", "", "", "") end)
 	end
 
 	local function chat(msg: string)
@@ -134,7 +125,7 @@ local success, err = pcall(function()
 					hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 					local opp = getRoot(p)
 					talk(bl)
-					slap(p, "DefaultSlap", Vector3.yAxis * 3)
+					slap(p, Vector3.yAxis * 3)
 					root.AssemblyLinearVelocity = Vector3.yAxis * -50
 					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 2500
 					root.CanCollide = false
