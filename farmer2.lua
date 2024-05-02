@@ -80,7 +80,7 @@ local success, err = pcall(function()
 	while task.wait(0.1) do
 		local root = getRoot()
 
-		if not root then
+		if not root or not root.Parent then
 			continue
 		end
 
