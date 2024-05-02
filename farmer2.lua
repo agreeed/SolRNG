@@ -136,7 +136,7 @@ local success, err = pcall(function()
 					local opp = getRoot(p)
 					talk(bl)
 					slap(p, "DefaultSlap", Vector3.xAxis * 3)
-					root.AssemblyLinearVelocity = Vector3.YAxis * 5
+					root.AssemblyLinearVelocity = Vector3.yAxis * 5
 					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
 					root.CanCollide = false
 					opp:ApplyImpulse(Vector3.yAxis * 16)
