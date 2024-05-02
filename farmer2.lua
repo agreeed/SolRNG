@@ -143,7 +143,7 @@ local success, err = pcall(function()
 				end)
 
 				if not s then
-					chat(e)
+					--chat(e)
 				end
 
 				wait()
