@@ -130,7 +130,7 @@ local success, err = pcall(function()
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
 			local bl = findBlacklistedUser(p.Name)
 
-			if bl then
+			if bl or true then
 				local s, e = pcall(function()
 					hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
 					local opp = getRoot(p)
