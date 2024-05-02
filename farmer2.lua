@@ -128,26 +128,28 @@ local success, err = pcall(function()
 		end
 
 		for _, p in pairs(game:GetService("Players"):GetPlayers()) do
-			local bl = findBlacklistedUser(p.Name)
+			-- local bl = findBlacklistedUser(p.Name)
 
-			if true then
-				local s, e = pcall(function()
-					hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
-					local opp = getRoot(p)
-					talk(bl)
-					slap(p, "DefaultSlap", Vector3.xAxis * 3)
-					root.AssemblyLinearVelocity = Vector3.yAxis * 5
-					root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
-					root.CanCollide = false
-					opp:ApplyImpulse(Vector3.yAxis * 16)
-				end)
+			-- if bl then
+			-- 	local s, e = pcall(function()
+			-- 		hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+			-- 		local opp = getRoot(p)
+			-- 		talk(bl)
+			-- 		slap(p, "DefaultSlap", Vector3.xAxis * 3)
+			-- 		root.AssemblyLinearVelocity = Vector3.yAxis * 5
+			-- 		root.AssemblyAngularVelocity = Vector3.new(math.random(), math.random(), math.random()) * 10
+			-- 		root.CanCollide = false
+			-- 		opp:ApplyImpulse(Vector3.yAxis * 16)
+			-- 	end)
 
-				if not s then
-					--chat(e)
-				end
+			-- 	if not s then
+			-- 		--chat(e)
+			-- 	end
 
-				wait()
-			end
+			-- 	wait()
+			-- end
+			slap(p, "DefaultSlap", Vector3.new(math.random(), math.random(), math.random()) * 10)
+			wait()
 		end
 	end
 end)
