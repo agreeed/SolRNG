@@ -19,6 +19,8 @@ $1;2gonzalito2;rule 3 [ib];SemiPurgatory
 $1;Bendy_inkmachine58;rule 3 [ib];SemiPurgatory
 UNBANNED $1;WAYON_IDK;rule 4;SemiPurgatory
 $0;real993r5;rule 4;SemiPurgatory
+$1;thedory255;rule 4, 5;SemiPurgatory
+$1;ilya_mol1;rule 4, 5;SemiPurgatory
 
 ]]
 parsedblacklist = {}
